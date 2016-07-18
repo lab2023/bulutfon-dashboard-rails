@@ -1,0 +1,17 @@
+PATH
+  remote: .
+  specs:
+    bulutfon_dashboard (0.0.1)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  bulutfon_dashboard!
+
+BUNDLED WITH
+   1.12.5
