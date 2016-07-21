@@ -1,0 +1,14 @@
+- if params[:q].present?
+  = render 'list'
+- else
+  .panel-heading
+    %i.fa.fa-table.icon-large
+    = t('tt.index', resource_name: 'Cdr')
+    .panel-tools
+      .btn-group
+        %a.btn{href: cdrs_path, data: {toggle: 'toolbar-tooltip'}, title: t('view.reload')}
+          %i.fa.fa-refresh
+      .badge= @cdrs.count
+  .alert.alert-warning
+    %p
+      %h3= t('activerecord.attributes.cdr.blank')

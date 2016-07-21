@@ -1,0 +1,31 @@
+%p
+  %strong
+    = t('activerecord.attributes.dashboard.name_surname')
+  = @user.name
+%p
+  %strong
+    = t('activerecord.attributes.dashboard.gsm')
+  = @user.gsm
+
+%p
+  %strong
+    = t('activerecord.attributes.dashboard.state')
+  = t("enumerates.domain_state.#{@pbx.state}")
+%p
+  %strong
+    = t('activerecord.attributes.dashboard.package')
+  = t("enumerates.package.#{@pbx.package}")
+%p
+  %strong
+    = t('activerecord.attributes.dashboard.balance')
+  = @credit.balance
+%p
+  %strong
+    = t('activerecord.attributes.dashboard.sms_credit')
+  = @credit.sms_credit
+
+%h3= t('view.url')
+%ul
+  %li= link_to t('view.urls.dashboard'), root_path
+  %li= link_to t('view.urls.bulutfon_user'), bulutfon_users_path
+  %li= link_to t('view.urls.cdrs'), cdrs_path

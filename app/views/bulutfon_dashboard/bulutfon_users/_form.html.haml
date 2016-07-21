@@ -1,0 +1,14 @@
+.panel.panel-default
+  .panel-heading
+    %i.icon-edit.icon-large
+    = yield :form_title
+  .panel-body
+    = simple_form_for(@resource, url: BulutfonDashboard::Engine.routes.url_helpers.bulutfon_users_path) do |f|
+      = f.error_notification
+
+      .form-inputs
+        = f.input :api_token
+        = f.input :sms_title
+      .form-actions
+        = f.button :submit, class: 'btn btn-primary'
+        = link_to t('view.cancel'), bulutfon_users_path, class: 'btn'
