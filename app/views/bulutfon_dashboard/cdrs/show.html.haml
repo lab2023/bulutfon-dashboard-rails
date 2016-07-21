@@ -1,0 +1,85 @@
+= stylesheet_link_tag 'bulutfon_dashboard/bulutfon-fonts'
+= javascript_include_tag 'bulutfon_dashboard/application'
+- content_for :toolbar do
+  = link_to cdrs_path, class: 'btn btn-default' do
+    %i.fa.fa-arrow-left
+    = t('generic.back_to_list')
+.panel.panel-default
+  .panel-heading
+    %i.fa.fa-pencil.fa-lg
+    = t('tt.show', resource_name: t('activerecord.models.cdr'))
+  .panel-body
+    = show_for @cdr do |s|
+      .row-fluid
+        .col-md-2
+          %h3= t('activerecord.attributes.cdr.domain')
+          = s.attribute :direction, label: t('activerecord.attributes.cdr.direction') do
+            = direction_icon @cdr.direction unless @cdr.direction.nil?
+        .col-md-2
+          %h3= t('activerecord.attributes.cdr.numbers')
+          = s.attribute :caller, label: t('activerecord.attributes.cdr.caller_id_name')
+          - if @cdr.direction == 'IN'
+            = s.attribute :caller_id_number, label: t('activerecord.attributes.cdr.caller_id_number')
+          - else
+            = s.attribute :caller_id_number, label: t('activerecord.attributes.cdr.caller_id_number') do
+              = "#{@cdr.caller} - #{@cdr.extension}"
+        .col-md-2
+          %h3= t('activerecord.attributes.cdr.states')
+          = s.attribute :hangup_cause, label: t('activerecord.attributes.cdr.hangup_cause') do
+            = t("freeswitch.hangup_cause.#{@cdr.hangup_cause}")
+          = s.attribute :sip_hangup_disposition, label: t('activerecord.attributes.cdr.hangup_disposition') do;
+            %span{toggle: :tooltip, title: t("freeswitch.sip_hangup_disposition_hover.#{@cdr.sip_hangup_disposition}")}= t("freeswitch.sip_hangup_disposition.#{@cdr.sip_hangup_disposition}")
+        .col-md-2
+          %h3= t('activerecord.attributes.cdr.times')
+          = s.attribute :call_time, label: t('activerecord.attributes.cdr.start_stamp') do
+            = l @cdr.call_time.to_datetime, format: :cdr if @cdr.call_time.present?
+          = s.attribute :answer_time, label: t('activerecord.attributes.cdr.answer_stamp') do
+            = l @cdr.answer_time.to_datetime, format: :cdr if @cdr.answer_time.present?
+          = s.attribute :hangup_time, label: t('activerecord.attributes.cdr.end_stamp') do
+            = l @cdr.hangup_time.to_datetime, format: :cdr if @cdr.hangup_time.present?
+
+        .col-md-4
+          %h3= t('activerecord.attributes.cdr.datas')
+          = s.attribute :uuid, label: t('activerecord.attributes.cdr.uuid')
+          - if @cdr.direction == 'OUT'
+            = s.attribute :nibble_total_billed, label: t('activerecord.attributes.mongo_cdr.nibble_total_billed') do
+              - total = @cdr.call_price.present? ? @cdr.call_price.to_f * 100 : 0.00
+              = sanitize_price(total, 'Kuruş')
+
+    - if @cdr.call_record == 'Var'
+      .panel.panel-default.grid.col-md-8.col-lg-offset-2
+        .panel-heading
+          %i.fa.fa-list.fa-lg
+          = t('activerecord.attributes.cdr.voice_record')
+        .panel-body
+          %table.table-centered.vertical-center
+            %tr
+
+              %td= audio_tag @bulutfon.call_records.get_stream(@cdr.uuid, true).to_obj.download_path, type: 'audio/ogg', preload: 'none'
+              %td
+                = link_to @bulutfon.call_records.get(@cdr.uuid, true).to_obj.download_path, class: 'btn btn-info' do
+                  %i.fa.fa-download
+                  = t('generic.download')
+      .clearfix.clear
+
+
+- if @cdr.direction == 'IN'
+  .panel.panel-default.grid
+    .panel-heading
+      %i.fa.fa-list.fa-lg
+      = t('activerecord.attributes.cdr.callflow')
+
+    %table.table.table-condensed
+      %thead
+        %th= t('activerecord.attributes.cdr.callee')
+        %th= t('activerecord.attributes.cdr.start_time')
+        %th= t('activerecord.attributes.cdr.answer_time')
+        %th= t('activerecord.attributes.cdr.hangup_timea')
+
+      - flow = @cdr.call_flow.reverse
+      - flow.each_with_index do |callflow, idx|
+        %tr
+          %td= callflow['callee']
+          %td= l callflow['start_time'].try(:to_datetime), format: :cdr if callflow['start_time'].present?
+          %td= l callflow['answer_time'].try(:to_datetime), format: :cdr if callflow['answer_time'].present?
+          %td= l callflow['hangup_time'].try(:to_datetime), format: :cdr if callflow['hangup_time'].present?

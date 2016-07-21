@@ -1,0 +1,98 @@
+tr:
+  activerecord:
+    models:
+      cdr: Arama Kaydı
+      bulutfon_user: Bulutfon Kullanıcısı
+      'bulutfon_dashboard/bulutfon_user': Bulutfon Kullanıcısı
+    attributes:
+      cdr:
+        direction: Arama Yönü
+        caller_id_name: Arayan Adı
+        caller_id_number: Arayan Numara
+        hangup_cause: Görüşme durumu
+        hangup_disposition: Çağrı Kapatma Bilgisi
+        start_time: Arama Zamanı
+        answer_time: Cevaplama Zamanı
+        hangup_time: Kapatma Zamanı
+        uuid: UUID
+        domain: Santral
+        numbers: Numaralar
+        states: Durumlar
+        times: Süreler
+        datas: Veriler
+        voice_record: Ses Kaydı
+        callflow: Arama Akışı
+        caller: Arayan Numara
+        callee: Aranan Numara
+        blank: Hiç arama kaydı bulunmuyor.
+        call_type: Arama Tipi
+        call_record: Arama Kaydı
+        call_type_detail:
+          fax: Faks
+          voice: Ses
+      'bulutfon_dashboard/bulutfon_user':
+        api_token: API Anahtarı
+        sms_title: SMS Başlığı
+      bulutfon_user:
+        blank: Henüz oluşturulmamış lütfen oluşturun
+      dashboard:
+        name_surname: Ad Soyad
+        gsm: GSM
+        state: Durum
+        package: Paket
+        balance: Konuşma Kredisi
+        sms_credit: SMS Kredisi
+  generic:
+    download: İndir
+    back_to_list: Listeye geri dön
+  view:
+    actions: İşlemler
+    cancel: İptal
+    edit: Düzenle
+    destroy: Sil
+    create: Oluştur
+    url: Linkler
+    urls:
+      dashboard: Bulutfon Panel
+      bulutfon_user: Bulutfon Kullanıcısı
+      cdrs: Arama Kayıtları
+
+  tt:
+    index: "%{resource_name} listesi"
+    edit: "%{resource_name} düzenle"
+    new: "Yeni %{resource_name}"
+    show: "%{resource_name} detay"
+  time:
+    formats:
+      default: "%d/%m/%Y - %H:%M"
+      cdr: "%d/%m/%Y - %H:%M:%S"
+  enumerates:
+    domain_state:
+      DRAFT: Taslak
+      RECANTED: Vazgeçildi
+      CONFIRMED: Onaylandı
+      CANCEL: İptal Edildi
+      SUSPENDED: Gelen aramalara kapalı
+      PRETERMINATED: Bütün aramalara kapalı
+      TERMINATED: Borçları nedeniyle kapatıldı
+    package:
+      SMALL: Giriş Paketi
+      MIDDLE: Kobi Paketi
+      COMMERCIAL: Ticari Paket
+      ENTERPRISE: Kurumsal Paket
+      APSIYON SITE: Apsiyon Site Paketi
+      APSIYON PRO: Apsiyon Pro Paketi
+      ISS: ISS
+      "Apsiyon Site Yönetimi Yıllık": Apsiyon Site Yönetimi Yıllık
+      "Apsiyon Profesyonel Yönetici Yıllık": Apsiyon Profesyonel Yönetici Yıllık
+      "0 - 249 Konut Apsiyon Aylık Paketi": 0 - 249 Konut Apsiyon Aylık Paketi
+      "250 - 499 Konut Apsiyon Aylık Paketi": 250 - 499 Konut Apsiyon Aylık Paketi
+      "500 - 749 Konut Apsiyon Aylık Paketi": 500 - 749 Konut Apsiyon Aylık Paketi
+      "750 ve üzeri Konut Apsiyon Aylık Paketi": 750 ve üzeri Konut Apsiyon Aylık Paketi
+      "0 - 249 Konut Apsiyon Yıllık Paketi": 0 - 249 Konut Apsiyon Yıllık Paketi
+      "250 - 499 Konut Apsiyon Yıllık Paketi": 250 - 499 Konut Apsiyon Yıllık Paketi
+      "500 - 749 Konut Apsiyon Yıllık Paketi": 500 - 749 Konut Apsiyon Yıllık Paketi
+      "750 ve üzeri Konut Apsiyon Yıllık Paketi": 750 ve üzeri Konut Apsiyon Yıllık Paketi
+    customer_type:
+      INVIDUAL: Bireysel Müşteri
+      CORPORATE: Kurumsal Müşteri
