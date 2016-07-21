@@ -6,6 +6,7 @@ module BulutfonDashboard
       def run_other_generators
         generate 'bulutfon_dashboard:assets'
         generate 'bulutfon_dashboard:initializers'
+        generate 'bulutfon_dashboard:helpers'
         generate 'bulutfon_dashboard:migrations'
         generate 'bulutfon_dashboard:controllers'
         generate 'bulutfon_dashboard:views'
