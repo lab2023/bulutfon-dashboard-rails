@@ -6,30 +6,45 @@ Bulutfon rails dashboard mountable engine.
 
 Add this line to your application's Gemfile:
 
+```ruby
     gem 'bulutfon_dashboard', git: 'https://github.com/lab2023/bulutfon-dashboard-rails.git', branch: 'master'
+```
 
 And then execute:
 
+```ruby
     $ bundle install
+```
 
 ## Usage
 	
 Run required commands in terminal:
+
+```ruby
 	rails generate bulutfon_dashboard:assets 
 	rails generate bulutfon_dashboard:initializers 
 	rails generate bulutfon_dashboard:helpers 
 	rails generate bulutfon_dashboard:migrations 
 	rails generate bulutfon_dashboard:controllers 
+```
 
 If you want to change views run this command:
+
+```bash
 	rails generate bulutfon_dashboard:views
+```
 
 Add this line to your application's config/routes.rb:
+
+```ruby
 	mount BulutfonDashboard::Engine => '/bulutfon', as: 'bulutfon_dashboard'
+```
 
 Access root path like this:
-	bulutfon_dashboard.root_path
 
+```ruby
+	bulutfon_dashboard.root_path
+```
 ## Contributing
 
 1. Fork it
