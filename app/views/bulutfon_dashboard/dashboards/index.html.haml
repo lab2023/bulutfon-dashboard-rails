@@ -32,6 +32,6 @@
             = link_to t('view.urls.cdrs'), cdrs_path, class: 'btn btn-primary'
           %hr/
           = s.attribute :balance, label: t('activerecord.attributes.dashboard.balance') do
-            = t("enumerates.domain_state.#{@user.credit['balance']}")
+            = number_to_currency @user.credit['balance']
           = s.attribute :sms_credit, label: t('activerecord.attributes.dashboard.sms_credit') do
             = @user.credit['sms_credit']
