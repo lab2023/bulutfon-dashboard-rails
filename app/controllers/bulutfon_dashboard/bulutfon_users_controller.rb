@@ -35,6 +35,15 @@ module BulutfonDashboard
       @resource = BulutfonUser.new(bulutfon_user_params)
       @resource.user_id = BulutfonDashboard.current_user.id
       if @resource.save
+        begin
+          bulutfon = BulutfonSDK::REST::Bulutfon.new(@resource.api_token)
+          bulutfon.details
+        rescue BulutfonSDK::REST::RequestError
+          @resource.destroy
+          flash[:danger] = 'Geçersiz bir api anahtarı girdiniz.'
+          redirect_to new_bulutfon_users_path
+          return
+        end
         redirect_to bulutfon_users_path
       else
         render :new
