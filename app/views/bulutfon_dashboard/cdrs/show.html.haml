@@ -26,16 +26,18 @@
         .col-md-2
           %h3= t('activerecord.attributes.cdr.states')
           = s.attribute :hangup_cause, label: t('activerecord.attributes.cdr.hangup_cause') do
-            = t("freeswitch.hangup_cause.#{@cdr.hangup_cause}")
-          = s.attribute :sip_hangup_disposition, label: t('activerecord.attributes.cdr.hangup_disposition') do;
-            %span{toggle: :tooltip, title: t("freeswitch.sip_hangup_disposition_hover.#{@cdr.sip_hangup_disposition}")}= t("freeswitch.sip_hangup_disposition.#{@cdr.sip_hangup_disposition}")
+            = t("enumerates.hangup_cause.#{@cdr.hangup_cause.upcase}")
+
+          - disposition = @cdr.hangup_state.present? ? @cdr.hangup_state : 'blank'
+          = s.attribute :sip_hangup_disposition, label: t('activerecord.attributes.cdr.hangup_disposition') do
+            %span{toggle: :tooltip, title: t("enumerates.sip_hangup_disposition_hover.#{disposition}")}= t("enumerates.sip_hangup_disposition.#{disposition}")
         .col-md-2
           %h3= t('activerecord.attributes.cdr.times')
-          = s.attribute :call_time, label: t('activerecord.attributes.cdr.start_stamp') do
+          = s.attribute :call_time, label: t('activerecord.attributes.cdr.start_time') do
             = l @cdr.call_time.to_datetime, format: :cdr if @cdr.call_time.present?
-          = s.attribute :answer_time, label: t('activerecord.attributes.cdr.answer_stamp') do
+          = s.attribute :answer_time, label: t('activerecord.attributes.cdr.answer_time') do
             = l @cdr.answer_time.to_datetime, format: :cdr if @cdr.answer_time.present?
-          = s.attribute :hangup_time, label: t('activerecord.attributes.cdr.end_stamp') do
+          = s.attribute :hangup_time, label: t('activerecord.attributes.cdr.hangup_time') do
             = l @cdr.hangup_time.to_datetime, format: :cdr if @cdr.hangup_time.present?
 
         .col-md-4
