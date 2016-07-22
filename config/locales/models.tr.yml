@@ -40,8 +40,17 @@ tr:
       bulutfon_user:
         blank: Henüz oluşturulmamış lütfen oluşturun
       dashboard:
+        user: Kullanıcı
+        pbx: Santral
+        credit: Kredi
         name_surname: Ad Soyad
         gsm: GSM
+        email: EMail
+        pbx_name: Santral Adı
+        customer_type: Müşteri Tipi
+        customer_types:
+          INVIDUAL: Bireysel
+          COMPANY: Kurumsal
         state: Durum
         package: Paket
         balance: Konuşma Kredisi
@@ -53,6 +62,7 @@ tr:
     actions: İşlemler
     cancel: İptal
     edit: Düzenle
+    new: Yeni
     destroy: Sil
     create: Oluştur
     url: Linkler
