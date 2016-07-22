@@ -50,7 +50,7 @@ module BulutfonDashboard
     end
 
     def bulutfon_user_params
-      params.require(:bulutfon_user).permit(:api_token, :sms_title)
+      params.require(:bulutfon_user).permit(:api_token)
     end
 
   end

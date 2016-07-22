@@ -2,7 +2,7 @@
   %td= cdr.caller
   %td= cdr.callee
   %td= direction_icon cdr.direction
-  %td= cdr.bf_calltype
+  %td= call_type_icon cdr.bf_calltype
   %td= cdr.call_time.present? ? l(cdr.call_time.to_datetime) : ''
   %td= cdr.answer_time.present? ? l(cdr.answer_time.to_datetime) : ''
   %td= cdr.hangup_time.present? ? l(cdr.hangup_time.to_datetime) : ''
