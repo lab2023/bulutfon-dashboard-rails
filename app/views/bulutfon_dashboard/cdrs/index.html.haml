@@ -2,4 +2,4 @@
   =blankable(@cdrs)
   .panel-footer
     .pagination.pagination-sm
-      -#= will_paginate @cities, renderer: BootstrapPagination::Rails, bootstrap: 3
+      = pagination(@pagination.total_pages, @pagination.page)

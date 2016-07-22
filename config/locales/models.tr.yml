@@ -27,6 +27,10 @@ tr:
         blank: Hiç arama kaydı bulunmuyor.
         call_type: Arama Tipi
         call_record: Arama Kaydı
+        direction_detail:
+          in: Gelen Arama
+          out: Giden Arama
+          local: Santrail İçi Arama
         call_type_detail:
           fax: Faks
           voice: Ses
