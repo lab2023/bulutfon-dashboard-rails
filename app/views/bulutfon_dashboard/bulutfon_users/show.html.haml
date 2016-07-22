@@ -18,7 +18,17 @@
     - else
       .alert.alert-warning
         %p
-          %h3.center= t('activerecord.attributes.bulutfon_user.blank')
-          = link_to new_bulutfon_users_path, class: 'btn btn-success' do
-            %i.fa.fa-plus
-            = t('view.create')
+          %h5.center
+            Bulutfon kullanıcı ayarları henüz oluşturulmamıştır. Bu menüye erişebilmek için Bulutfon API anahtarınızı tanımlamanız gerekmektedir. Eğer Bulutfon üyesi iseniz kullanıcı panelinizden
+            %strong Uygulamalar > API uygulamaları
+            menüsünden
+            %strong Tekil Api Anahtarınız
+            a erişebilirsiniz.
+
+            Eğer bulutfon üyesi değilseniz
+            = link_to 'https://app.bulutfon.com/accounts/new', 'https://app.bulutfon.com/accounts/new', target: '_blank'
+            adresinden bulutfon üyeliğinizi oluşturabilirsiniz.
+          .text-center
+            = link_to new_bulutfon_users_path, class: 'btn btn-success' do
+              %i.fa.fa-plus
+              Tanımla
