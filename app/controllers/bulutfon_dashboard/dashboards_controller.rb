@@ -5,10 +5,8 @@ module BulutfonDashboard
     add_breadcrumb 'Bulutfon', BulutfonDashboard::Engine.routes.url_helpers.root_path
 
     def index
-      @details = @bulutfon.details.to_obj
-      @user = @details.user
-      @credit = @details.credit
-      @pbx = @details.pbx
+      @details = @bulutfon.details
+      @user = ApiUser.new(@details)
     end
   end
 end

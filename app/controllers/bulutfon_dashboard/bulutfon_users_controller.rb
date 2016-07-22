@@ -4,13 +4,14 @@ module BulutfonDashboard
   class BulutfonUsersController < ApplicationController
     skip_before_action :set_bulutfon
     before_action :set_resource, only: [:new, :show, :edit, :update, :destroy]
-
-    add_breadcrumb 'Bulutfon Ayarları', BulutfonDashboard::Engine.routes.url_helpers.bulutfon_users_path
+    add_breadcrumb 'Bulutfon', BulutfonDashboard::Engine.routes.url_helpers.root_path
+    add_breadcrumb I18n.t('activerecord.models.bulutfon_user'), BulutfonDashboard::Engine.routes.url_helpers.bulutfon_users_path
 
     def show
     end
 
     def new
+      add_breadcrumb t('view.new'), BulutfonDashboard::Engine.routes.url_helpers.new_bulutfon_users_path
       if @resource.present?
         redirect_to edit_bulutfon_users_path
         return
@@ -19,6 +20,7 @@ module BulutfonDashboard
     end
 
     def edit
+      add_breadcrumb t('view.edit'), BulutfonDashboard::Engine.routes.url_helpers.edit_bulutfon_users_path
     end
 
     def update

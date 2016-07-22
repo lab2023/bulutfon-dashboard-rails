@@ -1,31 +1,37 @@
-%p
-  %strong
-    = t('activerecord.attributes.dashboard.name_surname')
-  = @user.name
-%p
-  %strong
-    = t('activerecord.attributes.dashboard.gsm')
-  = @user.gsm
-
-%p
-  %strong
-    = t('activerecord.attributes.dashboard.state')
-  = t("enumerates.domain_state.#{@pbx.state}")
-%p
-  %strong
-    = t('activerecord.attributes.dashboard.package')
-  = t("enumerates.package.#{@pbx.package}")
-%p
-  %strong
-    = t('activerecord.attributes.dashboard.balance')
-  = @credit.balance
-%p
-  %strong
-    = t('activerecord.attributes.dashboard.sms_credit')
-  = @credit.sms_credit
-
-%h3= t('view.url')
-%ul
-  %li= link_to t('view.urls.dashboard'), root_path
-  %li= link_to t('view.urls.bulutfon_user'), bulutfon_users_path
-  %li= link_to t('view.urls.cdrs'), cdrs_path
+.panel.panel-default.grid
+  .panel-heading
+    %i.fa.fa-user.fa-lg
+    = t('tt.show', resource_name: t('activerecord.models.bulutfon_dashboard/bulutfon_user'))
+  .panel-body
+    = show_for @user do |s|
+      .row-fluid
+        .col-lg-4
+          .text-center
+            = link_to t('view.urls.dashboard'), root_path, class: 'btn btn-primary'
+          %hr/
+          = s.attribute :name, label: t('activerecord.attributes.dashboard.name_surname') do
+            = @user.user['name']
+          = s.attribute :gsm, label: t('activerecord.attributes.dashboard.gsm') do
+            = @user.user['gsm']
+          = s.attribute :email, label: t('activerecord.attributes.dashboard.email') do
+            = @user.user['email']
+        .col-lg-4
+          .text-center
+            = link_to t('view.urls.bulutfon_user'), bulutfon_users_path, class: 'btn btn-primary'
+          %hr/
+          = s.attribute :pbx_name, label: t('activerecord.attributes.dashboard.pbx_name') do
+            = t("enumerates.domain_state.#{@user.pbx['name']}")
+          = s.attribute :state, label: t('activerecord.attributes.dashboard.state') do
+            = t("enumerates.domain_state.#{@user.pbx['state']}")
+          = s.attribute :package, label: t('activerecord.attributes.dashboard.package') do
+            = t("enumerates.package.#{@user.pbx['package']}")
+          = s.attribute :customer_type, label: t('activerecord.attributes.dashboard.customer_type') do
+            = t("activerecord.attributes.dashboard.customer_types.#{@user.pbx['customer_type']}")
+        .col-lg-4
+          .text-center
+            = link_to t('view.urls.cdrs'), cdrs_path, class: 'btn btn-primary'
+          %hr/
+          = s.attribute :balance, label: t('activerecord.attributes.dashboard.balance') do
+            = t("enumerates.domain_state.#{@user.credit['balance']}")
+          = s.attribute :sms_credit, label: t('activerecord.attributes.dashboard.sms_credit') do
+            = @user.credit['sms_credit']
