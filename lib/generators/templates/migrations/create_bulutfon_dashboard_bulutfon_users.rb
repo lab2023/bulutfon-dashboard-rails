@@ -1,7 +1,7 @@
 class CreateBulutfonDashboardBulutfonUsers < ActiveRecord::Migration
   def up
     create_table :bulutfon_dashboard_bulutfon_users do |t|
-      t.references :user, index: true, foreign_key: true
+      t.integer :user, index: true
       t.string :api_token
 
       t.timestamps null: false
