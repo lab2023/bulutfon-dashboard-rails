@@ -25,7 +25,7 @@ module BulutfonDashboard
 
     def update
       if @resource.update(bulutfon_user_params)
-        redirect_to bulutfon_users_path
+        redirect_to BulutfonDashboard::Engine.routes.url_helpers.root_path
       else
         render :edit
       end
@@ -35,7 +35,7 @@ module BulutfonDashboard
       @resource = BulutfonUser.new(bulutfon_user_params)
       @resource.user_id = BulutfonDashboard.current_user.id
       if @resource.save
-        redirect_to bulutfon_users_path
+        redirect_to BulutfonDashboard::Engine.routes.url_helpers.root_path
       else
         render :new
       end

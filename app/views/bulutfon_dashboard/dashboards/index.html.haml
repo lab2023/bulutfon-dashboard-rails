@@ -1,3 +1,5 @@
+= stylesheet_link_tag 'bulutfon_dashboard/bulutfon-fonts'
+
 .panel.panel-default.grid
   .panel-heading
     %i.fa.fa-user.fa-lg
@@ -6,32 +8,46 @@
     = show_for @user do |s|
       .row-fluid
         .col-lg-4
-          .text-center
-            = link_to t('view.urls.dashboard'), root_path, class: 'btn btn-primary'
-          %hr/
           = s.attribute :name, label: t('activerecord.attributes.dashboard.name_surname') do
             = @user.user['name']
-          = s.attribute :gsm, label: t('activerecord.attributes.dashboard.gsm') do
-            = @user.user['gsm']
-          = s.attribute :email, label: t('activerecord.attributes.dashboard.email') do
-            = @user.user['email']
-        .col-lg-4
-          .text-center
-            = link_to t('view.urls.bulutfon_user'), bulutfon_users_path, class: 'btn btn-primary'
-          %hr/
           = s.attribute :pbx_name, label: t('activerecord.attributes.dashboard.pbx_name') do
             = t("enumerates.domain_state.#{@user.pbx['name']}")
-          = s.attribute :state, label: t('activerecord.attributes.dashboard.state') do
-            = t("enumerates.domain_state.#{@user.pbx['state']}")
-          = s.attribute :package, label: t('activerecord.attributes.dashboard.package') do
-            = t("enumerates.package.#{@user.pbx['package']}")
-          = s.attribute :customer_type, label: t('activerecord.attributes.dashboard.customer_type') do
-            = t("activerecord.attributes.dashboard.customer_types.#{@user.pbx['customer_type']}")
         .col-lg-4
-          .text-center
-            = link_to t('view.urls.cdrs'), cdrs_path, class: 'btn btn-primary'
-          %hr/
           = s.attribute :balance, label: t('activerecord.attributes.dashboard.balance') do
             = number_to_currency @user.credit['balance']
           = s.attribute :sms_credit, label: t('activerecord.attributes.dashboard.sms_credit') do
             = @user.credit['sms_credit']
+        .col-lg-4.text-center
+          = link_to t('view.urls.cdrs'), cdrs_path, class: 'btn btn-block btn-primary'
+          %hr/
+          = link_to t('view.urls.bulutfon_entegration'), bulutfon_users_path, class: 'btn btn-block btn-primary'
+
+.panel.panel-default.grid
+  .panel-heading
+    %i.icon-table.icon-large
+    = t('tt.index', resource_name: t('view.last_cdrs', number: @content_count))
+    .panel-tools
+      .btn-group
+        %a.btn{href: root_path, data: {toggle: 'toolbar-tooltip'}, title: t('view.reload')}
+          %i.icon-refresh
+      .badge= @cdrs.count
+  - if @cdrs.size == 0
+    .panel-body
+      .alert.alert-warning
+        %p= t('activerecord.attributes.cdr.blank')
+  - else
+    %table.table
+      %thead
+        %tr
+          %td= t('activerecord.attributes.cdr.caller')
+          %td= t('activerecord.attributes.cdr.callee')
+          %td= t('activerecord.attributes.cdr.direction')
+          %td= t('activerecord.attributes.cdr.call_type')
+          %td= t('activerecord.attributes.cdr.start_time')
+          %td= t('activerecord.attributes.cdr.answer_time')
+          %td= t('activerecord.attributes.cdr.hangup_time')
+          %td= t('activerecord.attributes.cdr.call_record_exists?')
+          %th.actions
+            = t('view.actions')
+      %tbody
+        = render partial: 'bulutfon_dashboard/cdrs/cdr', collection: @cdrs

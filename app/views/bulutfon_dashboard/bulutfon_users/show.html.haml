@@ -1,11 +1,14 @@
-- content_for :toolbar do
-  - if @resource.present?
-    = link_to edit_bulutfon_users_path, class: 'btn btn-default' do
-      %i.icon-plus
-      = t('view.edit')
-    = link_to bulutfon_users_path, method: :delete, class: 'btn btn-warning' do
-      %i.icon-trash
-      = t('view.destroy')
+:css
+  .account .info{
+    min-height: 110px;
+  }
+  #contentTab .nav-pills > li > a {
+    border-radius: 4px 4px 0 0 ;
+  }
+  #contentTab .tab-content {
+    border: 1px solid #ddd;
+    padding : 5px 15px;
+  }
 .panel.panel-default.grid
   .panel-heading
     %i.fa.fa-table.icon-large
@@ -14,21 +17,77 @@
     - if @resource.present?
       = show_for @resource do |s|
         = s.attribute :api_token
-
+      %hr/
+      .pull-right
+        = link_to edit_bulutfon_users_path, class: 'btn btn-primary' do
+          %i.icon-edit
+          = t('view.edit_api_token')
+        = link_to bulutfon_users_path, method: :delete, class: 'btn btn-danger' do
+          %i.icon-trash
+          = t('view.destroy_api_token')
     - else
       .alert.alert-warning
         %p
           %h5.center
-            Bulutfon kullanıcı ayarları henüz oluşturulmamıştır. Bu menüye erişebilmek için Bulutfon API anahtarınızı tanımlamanız gerekmektedir. Eğer Bulutfon üyesi iseniz kullanıcı panelinizden
-            %strong Uygulamalar > API uygulamaları
-            menüsünden
-            %strong Tekil Api Anahtarınız
-            a erişebilirsiniz.
-
-            Eğer bulutfon üyesi değilseniz
-            = link_to 'https://app.bulutfon.com/accounts/new', 'https://app.bulutfon.com/accounts/new', target: '_blank'
-            adresinden bulutfon üyeliğinizi oluşturabilirsiniz.
+            %i.fa.fa-info-circle.fa-lg
+            Bulutfon entegrasyonunuz henüz tamamlanmamıştır. Entegrasyonu tamamlayabilmek için Bulutfon API Anahtarınızı eklemeniz gerekmektedir. Lütfen aşağıdaki seçenekler üzerinden entegrasyonunuzu tamamlayınız.
+      .row.account
+        .col-lg-6
+          .well
+            %h4.text-center
+              Bulutfon Hesabım Var
+            %p.info
+              Eğer Bulutfon üyesi iseniz aşağıdaki butona tıklayarak Bulutfon Hesabınıza giriş yapınız ve kullanıcı panelinizden
+              %strong Uygulamalar > API uygulamaları
+              menüsünden
+              %strong Tekil Api Anahtarınızı
+              aşağıdaki ekran görüntülerinde gösterildiği şekilde kopyalayıp API Anahtarını Ekle ve Entegrasyonu Tamamla butonuna tıklayıp gelen sayfadan API Anahtarınızı ekleyiniz.
+            .actions
+              .text-center
+                = link_to 'https://app.bulutfon.com/oauth/applications', target: '_blank', class: 'btn btn-block btn-primary' do
+                  Bulutfon Hesabına Giriş Yap
+        .col-lg-6
+          .well
+            %h4.text-center
+              Bulutfon Hesabım Yok
+            %p.info
+              Eğer bulutfon üyesi değilseniz aşağıdaki butona tıklayarak Bulutfon üyeliğinizi başlatıp yan taraftaki yönergeleri izleyiniz.
+            .actions
+              .text-center
+                = link_to 'https://app.bulutfon.com/accounts/new', target: '_blank', class: 'btn btn-block btn-primary' do
+                  Bulutfon Hesabı Oluştur
+      .row
+        .col-md-6.col-md-offset-3
           .text-center
-            = link_to new_bulutfon_users_path, class: 'btn btn-success' do
+            = link_to new_bulutfon_users_path, class: 'btn btn-lg btn-block btn-success' do
               %i.fa.fa-plus
-              Tanımla
+              API Anahtarını Ekle ve Entegrasyonu Tamamla
+      %br/
+      %br/
+      %br/
+      .row
+        .col-lg-12
+          #contentTab
+            %ul.nav.nav-pills
+              %li.active
+                %a{'data-toggle' => 'pill', href: '#step1'}
+                  1. Adım: Uygulamalar > API uygulamaları Menüsü
+              %li
+                %a{'data-toggle' => 'pill', href: '#step2'}
+                  2. Adım: Tekil API Anahtarının Alınması
+              %li
+                %a{'data-toggle' => 'pill', href: '#step3'}
+                  3. Adım: API Anahtarının Eklenmesi
+            .tab-content
+              #step1.tab-pane.fade.in.active
+                %h3 Uygulamalar > API uygulamaları Menüsü
+                %p
+                  = image_tag 'bulutfon_dashboard/screenshot-step-1.png', class: 'img-responsive'
+              #step2.tab-pane.fade
+                %h3 Tekil API Anahtarının Alınması
+                %p
+                  = image_tag 'bulutfon_dashboard/screenshot-step-2.png', class: 'img-responsive'
+              #step3.tab-pane.fade
+                %h3 API Anahtarının Eklenmesi
+                %p
+                  = image_tag 'bulutfon_dashboard/screenshot-step-3.png', class: 'img-responsive'

@@ -9,6 +9,6 @@
         %a.btn{href: cdrs_path, data: {toggle: 'toolbar-tooltip'}, title: t('view.reload')}
           %i.fa.fa-refresh
       .badge= @cdrs.count
-  .alert.alert-warning
-    %p
-      %h3= t('activerecord.attributes.cdr.blank')
+  .panel-body
+    .alert.alert-warning
+      %p= t('activerecord.attributes.cdr.blank')
