@@ -6,8 +6,19 @@
     = simple_form_for(@resource, url: BulutfonDashboard::Engine.routes.url_helpers.bulutfon_users_path) do |f|
       = f.error_notification
 
+      .alert.alert-info
+        Bulutfon kullanıcı panelinizden
+        %strong Uygulamalar > API uygulamaları
+        menüsünden
+        %strong Tekil Api Anahtarınız'a
+        erişebilirsiniz.
+        %br/
+        Ayrıca API Anahtarını alacağınız sayfanıza erişmek için bu
+        = link_to 'https://app.bulutfon.com/oauth/applications', 'https://app.bulutfon.com/oauth/applications', target: :_blank
+        linki kullanabilirsiniz.
       .form-inputs
         = f.input :api_token
       .form-actions
-        = f.button :submit, class: 'btn btn-primary'
         = link_to t('view.cancel'), bulutfon_users_path, class: 'btn'
+        - text = @resource.id.present? ? t('view.update_api_token') : t('view.save_api_token')
+        = f.button :submit, text, class: 'btn btn-primary'

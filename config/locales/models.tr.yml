@@ -61,6 +61,10 @@ tr:
     download: İndir
     back_to_list: Listeye geri dön
   view:
+    edit_api_token: API Anahtarını Değiştir
+    destroy_api_token: API Anahtarını Kaldır
+    update_api_token: API Anahtarını Güncelle
+    save_api_token:  API Anahtarını Kaydet ve Entegrasyonu Tamamla
     actions: İşlemler
     cancel: İptal
     edit: Düzenle
