@@ -18,7 +18,7 @@
         .col-md-2
           %h3= t('activerecord.attributes.cdr.numbers')
           = s.attribute :caller, label: t('activerecord.attributes.cdr.caller_id_name')
-          - if @cdr.direction == 'IN'
+          - if @cdr.direction_in?
             = s.attribute :caller_id_number, label: t('activerecord.attributes.cdr.caller_id_number')
           - else
             = s.attribute :caller_id_number, label: t('activerecord.attributes.cdr.caller_id_number') do
@@ -26,11 +26,10 @@
         .col-md-2
           %h3= t('activerecord.attributes.cdr.states')
           = s.attribute :hangup_cause, label: t('activerecord.attributes.cdr.hangup_cause') do
-            = t("enumerates.hangup_cause.#{@cdr.hangup_cause.upcase}")
-
-          - disposition = @cdr.hangup_state.present? ? @cdr.hangup_state : 'blank'
+            = @cdr.hangup_cause_i18n
           = s.attribute :sip_hangup_disposition, label: t('activerecord.attributes.cdr.hangup_disposition') do
-            %span{toggle: :tooltip, title: t("enumerates.sip_hangup_disposition_hover.#{disposition}")}= t("enumerates.sip_hangup_disposition.#{disposition}")
+            %span{toggle: :tooltip, title: @cdr.sip_hangup_disposition_hover_i18n }
+              = @cdr.sip_hangup_disposition_i18n
         .col-md-2
           %h3= t('activerecord.attributes.cdr.times')
           = s.attribute :call_time, label: t('activerecord.attributes.cdr.start_time') do
@@ -43,29 +42,25 @@
         .col-md-4
           %h3= t('activerecord.attributes.cdr.datas')
           = s.attribute :uuid, label: t('activerecord.attributes.cdr.uuid')
-          - if @cdr.direction == 'OUT'
-            = s.attribute :nibble_total_billed, label: t('activerecord.attributes.mongo_cdr.nibble_total_billed') do
-              - total = @cdr.call_price.present? ? @cdr.call_price.to_f * 100 : 0.00
-              = sanitize_price(total, 'Kuruş')
+          - if @cdr.direction_out?
+            = s.attribute :nibble_total_billed, label: t('activerecord.attributes.cdr.nibble_total_billed') do
+              = sanitize_price(@cdr.calculate_call_price, 'Kuruş')
 
-    - if @cdr.call_record == 'Var'
-      .panel.panel-default.grid.col-md-8.col-lg-offset-2
-        .panel-heading
-          %i.fa.fa-list.fa-lg
-          = t('activerecord.attributes.cdr.voice_record')
-        .panel-body
-          %table.table-centered.vertical-center
-            %tr
+- if @cdr.call_record_exists?
+  .panel.panel-default.grid
+    .panel-heading
+      %i.fa.fa-music.fa-lg
+      = t('activerecord.attributes.cdr.voice_record')
+    .panel-body
+      %table.table-centered.vertical-center
+        %tr
+          %td= audio_tag @bulutfon.call_records.get_stream(@cdr.uuid, true).to_obj.download_path, type: 'audio/ogg', preload: 'none'
+          %td
+            = link_to @bulutfon.call_records.get(@cdr.uuid, true).to_obj.download_path, class: 'btn btn-info' do
+              %i.fa.fa-download
+              = t('generic.download')
 
-              %td= audio_tag @bulutfon.call_records.get_stream(@cdr.uuid, true).to_obj.download_path, type: 'audio/ogg', preload: 'none'
-              %td
-                = link_to @bulutfon.call_records.get(@cdr.uuid, true).to_obj.download_path, class: 'btn btn-info' do
-                  %i.fa.fa-download
-                  = t('generic.download')
-      .clearfix.clear
-
-
-- if @cdr.direction == 'IN'
+- if @cdr.direction_in?
   .panel.panel-default.grid
     .panel-heading
       %i.fa.fa-list.fa-lg
@@ -76,7 +71,7 @@
         %th= t('activerecord.attributes.cdr.callee')
         %th= t('activerecord.attributes.cdr.start_time')
         %th= t('activerecord.attributes.cdr.answer_time')
-        %th= t('activerecord.attributes.cdr.hangup_timea')
+        %th= t('activerecord.attributes.cdr.hangup_time')
 
       - flow = @cdr.call_flow.reverse
       - flow.each_with_index do |callflow, idx|

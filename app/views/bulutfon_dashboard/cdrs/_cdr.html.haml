@@ -6,7 +6,7 @@
   %td= cdr.call_time.present? ? l(cdr.call_time.to_datetime) : ''
   %td= cdr.answer_time.present? ? l(cdr.answer_time.to_datetime) : ''
   %td= cdr.hangup_time.present? ? l(cdr.hangup_time.to_datetime) : ''
-  %td= cdr.call_record
+  %td= cdr.call_record_exists? ? t('simple_form.yes') : t('simple_form.no')
   %td.action
     = link_to(cdr_path(cdr.uuid), class: 'btn btn-success', toogle: 'tooltip', title: t('tooltips.zoom') ) do
       %i.icon-eye-open

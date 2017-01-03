@@ -27,6 +27,8 @@ tr:
         blank: Hiç arama kaydı bulunmuyor.
         call_type: Arama Tipi
         call_record: Arama Kaydı
+        call_record_exists?: Arama kaydı var mı?
+        nibble_total_billed: Kesilen Ücret
         direction_detail:
           in: Gelen Arama
           out: Giden Arama
