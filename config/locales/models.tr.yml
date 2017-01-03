@@ -2,8 +2,8 @@ tr:
   activerecord:
     models:
       cdr: Arama Kaydı
-      bulutfon_user: Bulutfon Kullanıcısı
-      'bulutfon_dashboard/bulutfon_user': Bulutfon Kullanıcısı
+      bulutfon_user: Bulutfon Entegrasyonu
+      'bulutfon_dashboard/bulutfon_user': Bulutfon Entegrasyonu
     attributes:
       cdr:
         direction: Arama Yönü
@@ -70,8 +70,10 @@ tr:
     url: Linkler
     urls:
       dashboard: Bulutfon Panel
-      bulutfon_user: Bulutfon Kullanıcısı
+      bulutfon_user: Bulutfon Entegrasyonu
+      bulutfon_entegration: Bulutfon Entegrasyon Ayarları
       cdrs: Arama Kayıtları
+    last_cdrs: "Son %{number} Arama Kaydı"
 
   tt:
     index: "%{resource_name} listesi"
