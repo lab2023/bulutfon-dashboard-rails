@@ -76,7 +76,7 @@ tr:
       dashboard: Bulutfon Panel
       bulutfon_user: Bulutfon Entegrasyonu
       bulutfon_entegration: Bulutfon Entegrasyon Ayarları
-      cdrs: Arama Kayıtları
+      cdrs: Tüm Arama Kayıtları
     last_cdrs: "Son %{number} Arama Kaydı"
 
   tt:
